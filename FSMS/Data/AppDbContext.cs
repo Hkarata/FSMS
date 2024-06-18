@@ -13,6 +13,14 @@ namespace FSMS.Data
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
+			modelBuilder.Entity<Department>().HasData(
+				new Department { Id = Guid.NewGuid(), Name = "Accounts" },
+				new Department { Id = Guid.NewGuid(), Name = "HR" },
+				new Department { Id = Guid.NewGuid(), Name = "Marketing" },
+				new Department { Id = Guid.NewGuid(), Name = "Sales" },
+				new Department { Id = Guid.NewGuid(), Name = "Procurement & Maintenance" }
+			);
+
 			base.OnModelCreating(modelBuilder);
 		}
 	}

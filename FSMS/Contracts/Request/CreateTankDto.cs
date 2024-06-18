@@ -1,8 +1,7 @@
-﻿namespace FSMS.Entities
+﻿namespace FSMS.Contracts.Request
 {
-	public class Tank
+	public record CreateTankDto
 	{
-		public Guid Id { get; init; }
 		public string Identifier { get; set; } = string.Empty;
 		public double Capacity { get; set; }
 	}
