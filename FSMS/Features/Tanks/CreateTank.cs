@@ -25,8 +25,7 @@ namespace FSMS.Features.Tanks
 				{
 					Id = Guid.NewGuid(),
 					Identifier = request.Identifier,
-					Capacity = request.Capacity,
-					IsActive = true
+					Capacity = request.Capacity
 				};
 
 				context.Tanks.Add(tank);
@@ -54,6 +53,8 @@ public class CreateTankEndPoint : ICarterModule
 			var result = await sender.Send(request);
 
 			return result.IsSuccess ? Results.Ok(result) : Results.BadRequest(result.Error);
-		});
+		})
+			.Produces<Result<Guid>>()
+			.WithTags("Tank");
 	}
 }

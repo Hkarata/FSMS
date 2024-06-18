@@ -48,6 +48,8 @@ public class GetTanksEndPoint : ICarterModule
 			var request = new GetTanks.Query();
 			var result = await sender.Send(request);
 			return result.IsSuccess ? Results.Ok(result) : Results.Ok(result.Error);
-		});
+		})
+			.Produces<Result<List<TankDto>>>()
+			.WithTags("Tank");
 	}
 }

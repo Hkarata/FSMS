@@ -57,6 +57,8 @@ public class UpdateTankEndPoint : ICarterModule
 			var result = await sender.Send(request);
 
 			return result.IsSuccess ? Results.Ok() : Results.Ok(result.Error);
-		});
+		})
+			.Produces<Result>()
+			.WithTags("Tank");
 	}
 }
