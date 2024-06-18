@@ -47,7 +47,7 @@ public class GetDepartmentsEndPoint : ICarterModule
 
 			var result = await sender.Send(request);
 
-			return Results.Ok(result);
+			return result.IsSuccess ? Results.Ok(result) : Results.Ok(result.Error);
 		})
 			.Produces<Result<List<DepartmentDto>>>()
 			.WithTags("Department");

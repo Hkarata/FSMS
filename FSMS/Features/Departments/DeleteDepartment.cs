@@ -47,7 +47,7 @@ public class DeleteDepartmentEndPoint : ICarterModule
 
 			var result = await sender.Send(request);
 
-			return result.IsSuccess ? Results.Ok() : Results.Ok(result.Error);
+			return result.IsSuccess ? Results.Ok(result) : Results.Ok(result.Error);
 		})
 			.Produces<Result>()
 			.WithTags("Department");

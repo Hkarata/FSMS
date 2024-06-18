@@ -13,5 +13,9 @@
 		public static readonly Error NonExistentDepartment = new("Error.NonExistentDepartment", "The specified department does not exist.");
 
 		public static readonly Error NonExistentEmployee = new("Error.NonExistentEmployee", "The specified employee does not exist.");
+
+		public static readonly Error NonExistentDispenser = new("Error.NonExistentDispenser", "The specified dispenser does not exist.");
+
+		public static readonly Error NonExistentAllocation = new("Error.NonExistentAllocation", "The specified allocation does not exist.");
 	}
 }
