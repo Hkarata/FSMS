@@ -27,7 +27,7 @@ namespace FSMS.Features.Employees
 
 				if (employee is null)
 				{
-					return Result.Failure<Guid>(Error.NullValue);
+					return Result.Failure<Guid>(Error.NonExistentEmployee);
 				}
 
 				employee.FirstName = request.FirstName;

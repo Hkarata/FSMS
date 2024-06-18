@@ -23,6 +23,7 @@ namespace FSMS.Features.Employees
 					.Where(x => !x.IsDeleted)
 					.Select(x => new EmployeeDto
 					{
+						Id = x.Id,
 						FirstName = x.FirstName,
 						LastName = x.LastName,
 						Email = x.Email,

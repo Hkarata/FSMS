@@ -24,6 +24,7 @@ namespace FSMS.Features.Employees
 					.Where(e => e.Id == request.Id)
 					.Select(e => new EmployeeDto
 					{
+						Id = e.Id,
 						FirstName = e.FirstName,
 						LastName = e.LastName,
 						Email = e.Email,

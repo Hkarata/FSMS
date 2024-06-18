@@ -1,13 +1,12 @@
 ﻿using Carter;
 using FSMS.Data;
 using FSMS.Extensions;
-using FSMS.Features.Employees;
+using FSMS.Features.Departments;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
-namespace FSMS.Features.Employees
+namespace FSMS.Features.Departments
 {
-	public abstract class DeleteEmployee
+	public abstract class DeleteDepartment
 	{
 		public class Command : IRequest<Result>
 		{
@@ -18,16 +17,15 @@ namespace FSMS.Features.Employees
 		{
 			public async Task<Result> Handle(Command request, CancellationToken cancellationToken)
 			{
-				var employee = await context.Employees
-					.Where(e => e.Id == request.Id)
-					.SingleOrDefaultAsync(cancellationToken);
+				var department = await context.Departments.FindAsync(request.Id);
 
-				if (employee is null)
+				if (department == null)
 				{
-					return Result.Failure(Error.NonExistentEmployee);
+					return Result.Failure(Error.NonExistentDepartment);
 				}
 
-				employee.IsDeleted = true;
+				context.Departments.Remove(department);
+
 				await context.SaveChangesAsync(cancellationToken);
 
 				return Result.Success();
@@ -36,13 +34,13 @@ namespace FSMS.Features.Employees
 	}
 }
 
-public class DeleteEmployeeEndPoint : ICarterModule
+public class DeleteDepartmentEndPoint : ICarterModule
 {
 	public void AddRoutes(IEndpointRouteBuilder app)
 	{
-		app.MapDelete("/api/employee/{id:guid}", async (Guid id, ISender sender) =>
+		app.MapDelete("/api/department/{id:guid}", async (Guid id, ISender sender) =>
 		{
-			var request = new DeleteEmployee.Command
+			var request = new DeleteDepartment.Command
 			{
 				Id = id
 			};
@@ -52,6 +50,6 @@ public class DeleteEmployeeEndPoint : ICarterModule
 			return result.IsSuccess ? Results.Ok() : Results.Ok(result.Error);
 		})
 			.Produces<Result>()
-			.WithTags("Employee");
+			.WithTags("Department");
 	}
 }
