@@ -10,14 +10,14 @@ namespace FSMS.Features.Allocations
 {
 	public class GetEmployeeAllocations
 	{
-		public class Query : IRequest<Result<List<AllocationDto>>
+		public class Query : IRequest<Result<List<AllocationDto>>>
 		{
 			public Guid EmployeeId { get; set; }
 		}
 
-		public sealed class Handler(AppDbContext context) : IRequestHandler<Query, Result<List<AllocationDto>>
+		public sealed class Handler(AppDbContext context) : IRequestHandler<Query, Result<List<AllocationDto>>>
 		{
-			public async Task<Result<List<AllocationDto>> Handle(Query request, CancellationToken cancellationToken)
+			public async Task<Result<List<AllocationDto>>> Handle(Query request, CancellationToken cancellationToken)
 			{
 				var allocations = await context.Allocations
 					.AsNoTracking()
