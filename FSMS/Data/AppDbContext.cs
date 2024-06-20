@@ -9,7 +9,8 @@ namespace FSMS.Data
 		public DbSet<Department> Departments { get; set; }
 		public DbSet<Dispenser> Dispensers { get; set; }
 		public DbSet<Employee> Employees { get; set; }
-		public DbSet<Tank> Tanks { get; set; }
+        public DbSet<Price> Prices { get; set; }
+        public DbSet<Tank> Tanks { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{

@@ -14,7 +14,8 @@ namespace FSMS.Features.Tanks
 		{
 			public string Identifier { get; set; } = string.Empty;
 			public double Capacity { get; set; }
-		}
+			public FuelType Fuel { get; set; }
+        }
 
 		public sealed class Handler(AppDbContext context) : IRequestHandler<Command, Result<Guid>>
 		{
@@ -25,7 +26,8 @@ namespace FSMS.Features.Tanks
 				{
 					Id = Guid.NewGuid(),
 					Identifier = request.Identifier,
-					Capacity = request.Capacity
+                    Fuel = request.Fuel,
+                    Capacity = request.Capacity
 				};
 
 				context.Tanks.Add(tank);
@@ -47,7 +49,8 @@ public class CreateTankEndPoint : ICarterModule
 			var request = new CreateTank.Command
 			{
 				Identifier = tank.Identifier,
-				Capacity = tank.Capacity
+                Fuel = tank.Fuel,
+                Capacity = tank.Capacity
 			};
 
 			var result = await sender.Send(request);

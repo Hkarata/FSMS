@@ -3,6 +3,7 @@ using System;
 using FSMS.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FSMS.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240620102424_FuelMigration")]
+    partial class FuelMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -69,31 +72,31 @@ namespace FSMS.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("b6634914-ffe7-482c-a3f5-43594ad948f9"),
+                            Id = new Guid("3b141870-5cdf-4879-9d3e-3b361bd04730"),
                             IsDeleted = false,
                             Name = "Accounts"
                         },
                         new
                         {
-                            Id = new Guid("e6b69f3c-b09e-4bf9-81bc-b44bd2f2986e"),
+                            Id = new Guid("d0b02152-aad9-40bf-ba0f-fbc671a25f6d"),
                             IsDeleted = false,
                             Name = "HR"
                         },
                         new
                         {
-                            Id = new Guid("34f9643c-17c1-4211-b47c-48511a2545b0"),
+                            Id = new Guid("f6542eee-1d94-494e-8026-65609184eea6"),
                             IsDeleted = false,
                             Name = "Marketing"
                         },
                         new
                         {
-                            Id = new Guid("3d7c11fc-09ec-486d-a553-16cfe5ed7edc"),
+                            Id = new Guid("0d76be87-a5ab-4042-b0a7-6c6e1fecf580"),
                             IsDeleted = false,
                             Name = "Sales"
                         },
                         new
                         {
-                            Id = new Guid("75464478-b879-4796-9301-421a2ba8eb84"),
+                            Id = new Guid("181dc1ac-fe9e-4af2-adb3-824bc13b5bbf"),
                             IsDeleted = false,
                             Name = "Procurement & Maintenance"
                         });
@@ -147,34 +150,6 @@ namespace FSMS.Migrations
                     b.HasIndex("DepartmentId");
 
                     b.ToTable("Employees");
-                });
-
-            modelBuilder.Entity("FSMS.Entities.Price", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime?>("EndDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("Fuel")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int?>("Validity")
-                        .HasColumnType("integer");
-
-                    b.Property<decimal>("Value")
-                        .HasColumnType("numeric");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Prices");
                 });
 
             modelBuilder.Entity("FSMS.Entities.Tank", b =>

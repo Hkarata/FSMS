@@ -24,7 +24,8 @@ namespace FSMS.Features.Tanks
 					{
 						Id = tank.Id,
 						Name = tank.Identifier,
-						Capacity = tank.Capacity
+                        Fuel = tank.Fuel,
+                        Capacity = tank.Capacity
 					})
 					.ToListAsync(cancellationToken);
 

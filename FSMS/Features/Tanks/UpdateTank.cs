@@ -14,7 +14,8 @@ namespace FSMS.Features.Tanks
 		{
 			public Guid Id { get; set; }
 			public string Name { get; set; } = string.Empty;
-			public double Capacity { get; set; }
+			public FuelType Fuel { get; set; }
+            public double Capacity { get; set; }
 		}
 
 		public class Handler(AppDbContext context) : IRequestHandler<Command, Result>
@@ -32,8 +33,9 @@ namespace FSMS.Features.Tanks
 
 				tank.Identifier = request.Name;
 				tank.Capacity = request.Capacity;
+                tank.Fuel = request.Fuel;
 
-				await context.SaveChangesAsync(cancellationToken);
+                await context.SaveChangesAsync(cancellationToken);
 
 				return Result.Success();
 			}
@@ -51,7 +53,8 @@ public class UpdateTankEndPoint : ICarterModule
 			{
 				Id = id,
 				Name = tank.Identifier,
-				Capacity = tank.Capacity
+                Fuel = tank.Fuel,
+                Capacity = tank.Capacity
 			};
 
 			var result = await sender.Send(request);
