@@ -57,6 +57,8 @@ public class GetAllocationsEndPoint : ICarterModule
 			var request = new GetAllocations.Command();
 			var result = await sender.Send(request);
 			return result.IsSuccess ? Results.Ok(result) : Results.Ok(result.Error);
-		});
+		})
+			.Produces<Result<List<AllocationDto>>>()
+			.WithTags("Allocation");
 	}
 }
