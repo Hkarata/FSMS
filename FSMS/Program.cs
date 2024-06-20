@@ -8,14 +8,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddMediatR(options =>
 {
-	options.RegisterServicesFromAssembly(typeof(Program).Assembly);
+    options.RegisterServicesFromAssembly(typeof(Program).Assembly);
 });
 
 builder.Services.AddCarter();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
-	options.UseNpgsql(builder.Configuration.GetConnectionString("AppDbConnection"));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("AppDbConnection"));
 });
 
 builder.Services.AddCors(options =>

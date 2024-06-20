@@ -8,56 +8,56 @@ using MediatR;
 
 namespace FSMS.Features.Tanks
 {
-	public abstract class CreateTank
-	{
-		public class Command : IRequest<Result<Guid>>
-		{
-			public string Identifier { get; set; } = string.Empty;
-			public double Capacity { get; set; }
-			public FuelType Fuel { get; set; }
+    public abstract class CreateTank
+    {
+        public class Command : IRequest<Result<Guid>>
+        {
+            public string Identifier { get; set; } = string.Empty;
+            public double Capacity { get; set; }
+            public FuelType Fuel { get; set; }
         }
 
-		public sealed class Handler(AppDbContext context) : IRequestHandler<Command, Result<Guid>>
-		{
+        public sealed class Handler(AppDbContext context) : IRequestHandler<Command, Result<Guid>>
+        {
 
-			public async Task<Result<Guid>> Handle(Command request, CancellationToken cancellationToken)
-			{
-				var tank = new Tank
-				{
-					Id = Guid.NewGuid(),
-					Identifier = request.Identifier,
+            public async Task<Result<Guid>> Handle(Command request, CancellationToken cancellationToken)
+            {
+                var tank = new Tank
+                {
+                    Id = Guid.NewGuid(),
+                    Identifier = request.Identifier,
                     Fuel = request.Fuel,
                     Capacity = request.Capacity
-				};
+                };
 
-				context.Tanks.Add(tank);
-				await context.SaveChangesAsync(cancellationToken);
+                context.Tanks.Add(tank);
+                await context.SaveChangesAsync(cancellationToken);
 
-				return Result<Guid>.Success(tank.Id);
-			}
-		}
+                return Result<Guid>.Success(tank.Id);
+            }
+        }
 
-	}
+    }
 }
 
 public class CreateTankEndPoint : ICarterModule
 {
-	public void AddRoutes(IEndpointRouteBuilder app)
-	{
-		app.MapPost("/api/tank", async (CreateTankDto tank,ISender sender) =>
-		{
-			var request = new CreateTank.Command
-			{
-				Identifier = tank.Identifier,
+    public void AddRoutes(IEndpointRouteBuilder app)
+    {
+        app.MapPost("/api/tank", async (CreateTankDto tank, ISender sender) =>
+        {
+            var request = new CreateTank.Command
+            {
+                Identifier = tank.Identifier,
                 Fuel = tank.Fuel,
                 Capacity = tank.Capacity
-			};
+            };
 
-			var result = await sender.Send(request);
+            var result = await sender.Send(request);
 
-			return result.IsSuccess ? Results.Ok(result) : Results.BadRequest(result.Error);
-		})
-			.Produces<Result<Guid>>()
-			.WithTags("Tank");
-	}
+            return result.IsSuccess ? Results.Ok(result) : Results.BadRequest(result.Error);
+        })
+            .Produces<Result<Guid>>()
+            .WithTags("Tank");
+    }
 }
