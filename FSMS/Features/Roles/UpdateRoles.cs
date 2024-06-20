@@ -61,6 +61,6 @@ public class UpdateRolesEndPoint : ICarterModule
             return result.IsSuccess ? Results.Ok(result) : Results.Ok(result);
         })
             .Produces<Result>()
-            .WithTags("Roles");
+            .WithTags("Weekly Roles");
     }
 }

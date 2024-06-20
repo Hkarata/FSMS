@@ -20,7 +20,7 @@ namespace FSMS.Features.Roles
             public async Task<Result<RolesDto>> Handle(Query request, CancellationToken cancellationToken)
             {
                 var roles = await context.WeeklyRoles
-                    .Where(weeklyRole => weeklyRole.EmployeeId == request.EmployeeId)
+                    .Where(weeklyRole => weeklyRole.EmployeeId == request.EmployeeId && weeklyRole.StartDate < DateTime.Today && DateTime.Today < weeklyRole.EndDate)
                     .SelectMany(weeklyRole => weeklyRole.Roles!)
                     .Select(role => role.Name)
                     .ToListAsync(cancellationToken);
