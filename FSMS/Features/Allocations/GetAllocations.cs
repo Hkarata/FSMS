@@ -29,7 +29,7 @@ namespace FSMS.Features.Allocations
 
                 if (query.Count == 0)
                 {
-                    return Result.Failure<List<AllocationDto>>(Error.None);
+                    return Result.Failure<List<AllocationDto>>(Error.NullValue);
                 }
 
                 var allocations = query.Select(a => new AllocationDto
